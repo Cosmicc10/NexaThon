@@ -1,3 +1,4 @@
+from flask import render_template
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 
@@ -10,10 +11,24 @@ db = client["medlink"]
 
 hospital_collection = db["hospitals"]
 
+@app.route("/add_hospital", methods=["POST"])
+def add_hospital():
+
+    data = request.json
+
+    hospital_collection.insert_one(data)
+
+    return jsonify({"message": "Hospital added successfully"})
+
+@app.route("/hospitals", methods=["GET"])
+def get_hospitals():
+    hospitals = list(hospital_collection.find({}, {"_id": 0}))
+    return jsonify(hospitals)
 
 @app.route("/")
 def home():
-    return "MedLink Server Running"
+    return render_template("index.html")
+
 
 
 if __name__ == "__main__":
