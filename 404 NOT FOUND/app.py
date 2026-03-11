@@ -4,12 +4,16 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-# MongoDB connection
+#MongoDB connection
 client = MongoClient("mongodb://localhost:27017/")
 
 db = client["medlink"]
 
 hospital_collection = db["hospitals"]
+
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 @app.route("/add_hospital", methods=["POST"])
 def add_hospital():
@@ -24,10 +28,6 @@ def add_hospital():
 def get_hospitals():
     hospitals = list(hospital_collection.find({}, {"_id": 0}))
     return jsonify(hospitals)
-
-@app.route("/")
-def home():
-    return render_template("index.html")
 
 
 

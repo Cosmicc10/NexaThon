@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>MedLink</title>
+<title>MedLink</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<style>
+#map{
+height:500px;
+width:100%;
+}
+</style>
 </head>
-
 <body>
-
 <h1>MedLink - Smart Healthcare Finder</h1>
-
 <button onclick="loadHospitals()">Find Hospitals</button>
-
-<div id="hospitalList"></div>
-
+<button onclick="findNearest()">Find Nearest Hospital</button>
+<button onclick="sos()">🚨 EMERGENCY SOS</button>
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="/static/script.js"></script>
-
 </body>
-
 </html>
